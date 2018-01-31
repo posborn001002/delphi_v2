@@ -1,4 +1,4 @@
-<%= form_with(model: organization, local: true) do |form| %>
+<%= form_with(model: organization, local: true, html: {autocomplete: "false"} ) do |form| %>
   <% if organization.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
@@ -27,18 +27,16 @@
   </div>
 
   <div class="field">
-    <%= form.label :city %>
-    <%= form.text_field :city, id: :organization_city %>
+    <%= form.label 'City & State' %>
+    <%= form.text_field :city_and_state, id: 'f_elem_city', class: 'ff_elem' %>
   </div>
 
-  <div class="field">
-    <%= form.label :state %>
-    <%= form.text_field :state, id: :organization_state %>
-  </div>
-
-  <div class="field">
-    <%= form.label :country %>
-    <%= form.text_field :country, id: :organization_country %>
+  <div class="hidden fields">
+    <%= form.hidden_field :city, id: 'geobytescity' %>
+    <%= form.hidden_field :state, id: 'geobytesregion' %>
+    <%= form.hidden_field :country, id:'geobytescountry' %>
+    <%= form.hidden_field :latitude, id:'geobyteslatitude' %>
+    <%= form.hidden_field :longitude, id:'geobyteslongitude' %>
   </div>
 
   <div class="actions">

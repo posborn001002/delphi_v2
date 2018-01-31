@@ -31,6 +31,24 @@ class PeopleController < ApplicationController
   #  @person = @person.organizations
   end
 
+  def newcontact
+    @organization = Organization.new
+    @person = @organization.people.new
+  end
+
+  def createcontact
+    @organization = Organization.find_or_create_by ( { name: params[:organization_name] } )
+    @person = @organization.people.create ( person_params )
+    respond_to do |format|
+      if @person.save
+        format.html { redirect_to organization_path( @organization ), notice: 'Person was successfully created.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to organization_path( @organization ), notice: 'Person was not created.' }
+      end
+    end
+  end
+
   # GET /people/1/edit
   # organizations/16/people/11/edit
   def edit
@@ -94,8 +112,8 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:first_name, :last_name, :email, :telephone, :organization_id, :job_title, :person,
-                                      organizations_attributes: [:name, :address1, :address2, :city, :state, :country]
+      params.require(:person).permit(:first_name, :last_name, :email, :telephone, :organization_id, :job_title, :person, :organization_name,
+                                      organizations_attributes: [:name, :address1, :address2, :city, :state, :country, :city_and_state, :latitude, :longitude ]
       )
     end
 

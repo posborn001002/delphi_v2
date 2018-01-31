@@ -6,8 +6,5 @@ class Person < ApplicationRecord
     self.organization = Organization.find_or_create_by( name: name )
   end
 
-  def organization_name
-    self.organization.name
-  end
 
 end

@@ -1,6 +1,6 @@
 
 <h1>New Contact for <%= @organization.name %></h1>
 
-<%= render 'new_contact_form', person: @person %>
+<%= render 'newcontact', person: @person %>
 
 <%= link_to 'Back', organization_people_path( @organization ) %>
